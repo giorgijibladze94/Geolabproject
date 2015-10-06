@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.geolabedu.testn2.DetailsActivity">
+
+    <item android:id="@+id/edit"
+        android:title="@string/edit"
+        android:icon="@drawable/editicon"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/send"
+        android:title="@string/send"
+        android:icon="@drawable/sendicon"
+        app:showAsAction="always"/>
+
+
+    <item
+        android:id="@+id/delete"
+        android:title="@string/delete"
+        android:icon="@drawable/delateicon"
+        app:showAsAction="always"/>
+
+</menu>

@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">testN2</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">edit</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
+    <string name="send">send</string>
+    <string name="title_activity_first">FirstActivity</string>
+    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_square">Hello Square World!</string>
+    <string name="title_activity_choose">ChooseActivity</string>
+    <string name="title_activity_detail">DetailActivity</string>
+
+    <string name="open">open</string>
+    <string name="close">close</string>
+
+    <string-array name="vehicle_age">
+
+        <item>წელი</item>
+        <item>2000</item>
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+
+    </string-array>
+
+    <string-array name="spinner_array_categ">
+
+        <item>მწარმოებელი</item>
+        <item>bmw</item>
+        <item>merc</item>
+        <item>audi</item>
+        <item>opel</item>
+
+    </string-array>
+
+    <string-array name="spinner_array_model_bmw">
+
+        <item>m3</item>
+        <item>x6</item>
+        <item>m6</item>
+
+    </string-array>
+
+    <string-array name="spinner_array_model_merc">
+
+        <item>sls</item>
+        <item>C</item>
+        <item>E</item>
+
+    </string-array>
+    <string-array name="spinner_array_model_audi">
+
+        <item>R8</item>
+        <item>A4</item>
+        <item>A6</item>
+
+    </string-array>
+    <string-array name="spinner_array_model_opel">
+
+        <item>corsa</item>
+        <item>astra</item>
+        <item>omega</item>
+
+    </string-array>
+
+    <string-array name="spinner_array_model_null">
+
+        <item>მოდელი</item>
+
+    </string-array>
+    <string name="title_activity_contact">ContactActivity</string>
+    <string name="title_activity_caucasus_contact">CaucasusContactActivity</string>
+
+</resources>
