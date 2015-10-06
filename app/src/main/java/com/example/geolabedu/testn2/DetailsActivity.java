@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.geolabedu.testn2.Adapter.CustomViewPagerAdapter;
 import com.example.geolabedu.testn2.database.DBHelper;
 import com.example.geolabedu.testn2.database.VehiclContracts;
 import com.example.geolabedu.testn2.database.VehicleData;
@@ -31,6 +33,7 @@ public class DetailsActivity extends AppCompatActivity {
     public static SQLiteDatabase sqLiteDatabase;
     TextView textView,description;
     Toolbar toolbar;
+    ViewPager viewPager;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -41,13 +44,14 @@ public class DetailsActivity extends AppCompatActivity {
         dbHelper=new DBHelper(this);
         sqLiteDatabase=dbHelper.getWritableDatabase();
 
+        viewPager= (ViewPager) findViewById(R.id.viewpager);
         textView= (TextView) findViewById(R.id.detal_calendar);
         description= (TextView) findViewById(R.id.description);
 
 
         VehicleData data= (VehicleData) getIntent().getExtras().getSerializable("data");
 
-        Cursor cursor=sqLiteDatabase.query(VehiclContracts.VEHICLE_IMAGE_TABLE,null,VehiclContracts.VEHICLE_IMAGE_ID + "= "+data.getID(),null,null,null,null);
+        Cursor cursor=sqLiteDatabase.query(VehiclContracts.VEHICLE_IMAGE_TABLE,null,VehiclContracts.VEHICLE_PARENT_ID + "= "+data.getID(),null,null,null,null);
 
         ArrayList list=new ArrayList();
         if (cursor.moveToFirst()){
@@ -55,11 +59,12 @@ public class DetailsActivity extends AppCompatActivity {
                 String image = cursor.getString(cursor.getColumnIndex(VehiclContracts.VEHICLE_IMAGE));
                 VehicleData itemimage=new VehicleData(image);
 
-                list.add(itemimage);
+                list.add(itemimage.getImage2());
             }while (cursor.moveToNext());
         }
 
-
+        CustomViewPagerAdapter pagerAdapter=new CustomViewPagerAdapter(this,list);
+        viewPager.setAdapter(pagerAdapter);
 
         String calendar=data.getCalendar();
         String desck=data.getDecskr();

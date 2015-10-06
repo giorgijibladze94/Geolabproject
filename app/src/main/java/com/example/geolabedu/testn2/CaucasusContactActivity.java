@@ -1,6 +1,7 @@
 package com.example.geolabedu.testn2;
 
 import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -16,9 +17,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class CaucasusContactActivity extends ActionBarActivity {
 
+public class CaucasusContactActivity extends ActionBarActivity implements OnMapReadyCallback {
+
+    SupportMapFragment mapFragment;
     ImageButton imageButton;
     Toolbar toolbar;
     TextView textView,textView1,textView2,textView3;
@@ -29,20 +41,25 @@ public class CaucasusContactActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_caucasus_contact);
 
+        GoogleMapOptions options = new GoogleMapOptions().liteMode(true);
         textView= (TextView) findViewById(R.id.contact);
         textView1= (TextView) findViewById(R.id.contact1);
         textView2= (TextView) findViewById(R.id.contact2);
         textView3= (TextView) findViewById(R.id.contact3);
         toolbar= (Toolbar) findViewById(R.id.contacttoolbar);
 
-        imageButton= (ImageButton) findViewById(R.id.contactimage);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(CaucasusContactActivity.this,ContactActivity.class);
-                startActivity(intent);
-            }
-        });
+//        imageButton= (ImageButton) findViewById(R.id.contactimage);
+//        imageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(CaucasusContactActivity.this,ContactActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -84,5 +101,32 @@ public class CaucasusContactActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMapReady(final GoogleMap googleMap) {
+
+        final LatLng caucasus=new LatLng(41.7078902,44.7732324);
+        Marker marker=googleMap.addMarker(new MarkerOptions().position(caucasus));
+
+
+//        googleMap.setMyLocationEnabled(true);
+//        LatLng markerLoc=new LatLng(caucasus.latitude, caucasus.longitude);
+//        final CameraPosition cameraPosition = new CameraPosition.Builder()
+//                .target(markerLoc)      // Sets the center of the map to Mountain View
+//                .zoom(16)                   // Sets the zoom
+//                .bearing(90)                // Sets the orientation of the camera to east
+//                .tilt(30)                   // Sets the tilt of the camera to 30 degrees
+//                .build();                   //
+//        googleMap.addMarker(new MarkerOptions().position(new LatLng(caucasus.latitude, caucasus.longitude)));
+//        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//        googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+//            @Override
+//            public boolean onMyLocationButtonClick() {
+//                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//                return true;
+//            }
+//        });
+
     }
 }

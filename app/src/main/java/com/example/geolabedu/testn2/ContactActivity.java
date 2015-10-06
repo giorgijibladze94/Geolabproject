@@ -1,17 +1,19 @@
 package com.example.geolabedu.testn2;
 
+import android.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class ContactActivity extends FragmentActivity {
+public class ContactActivity extends FragmentActivity{
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -20,6 +22,7 @@ public class ContactActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact2);
         setUpMapIfNeeded();
+        GoogleMapOptions options = new GoogleMapOptions().liteMode(true);
     }
 
     @Override

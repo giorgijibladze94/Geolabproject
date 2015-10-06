@@ -292,7 +292,7 @@ public class ChooseActivity extends ActionBarActivity {
                     arrayList.add(st);
 
                     if(arrayList!=null){
-                        image.setVisibility(View.INVISIBLE);
+                        image.setVisibility(View.INVISIBLE);//xilvadoba
                         adapter.notifyDataSetChanged();
                         viewPager.setAdapter(adapter);
                     }
