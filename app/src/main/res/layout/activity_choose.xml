@@ -1,3 +1,8 @@
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -26,7 +31,8 @@
         android:layout_alignParentEnd="false"
         android:autoText="false"
         android:editable="false"
-        android:enabled="true" />
+        android:enabled="true"
+        tools:ignore="RtlCompat" />
 
     <Button
         android:layout_width="50dp"
@@ -115,11 +121,12 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
         android:id="@+id/edit_weli"
         android:layout_below="@+id/spinnerweli">
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/mail"
             android:hint="იმეილი"/>
@@ -130,6 +137,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
         android:layout_below="@+id/edit_weli"
         >
 
@@ -145,3 +153,4 @@
 
 
 </RelativeLayout>
+</ScrollView>

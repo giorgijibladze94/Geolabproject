@@ -16,7 +16,7 @@ public class DBManager {
 
     public static ArrayList testarray() {
         arrayList = new ArrayList();
-        arrayList.add("მწარმოებელი");
+        arrayList.add("მწარმოებელი'");
         arrayList.add("ACURA");
         arrayList.add("AUDI");
         arrayList.add("BMW");
@@ -28,10 +28,11 @@ public class DBManager {
     public static void insertdata(){
         ContentValues values=new ContentValues();
         testarray();
-        if (selectdata().isEmpty())
-        for (int i=0;i<arrayList.size();i++) {
-            values.put(VehiclContracts.VEHICLE_BUILDER,arrayList.get(i));
-            FirstActivity.sqLiteDatabase.insert(VehiclContracts.VEHICLE_BUILDER_TABLE,null,values);
+        if (!selectdata().isEmpty()) {
+            for (int i = 0; i < arrayList.size(); i++) {
+                values.put(VehiclContracts.VEHICLE_BUILDER, arrayList.get(i));
+                FirstActivity.sqLiteDatabase.insert(VehiclContracts.VEHICLE_BUILDER_TABLE, null, values);
+            }
         }
     }
 

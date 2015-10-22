@@ -56,7 +56,7 @@ public class ChooseActivity extends ActionBarActivity {
     ViewPager viewPager;
     long l;
     ImageView image;
-    EditText editmail,editnomeri,editweli,editdisck,choose_edittext;
+    EditText editmail,editnomeri,editdisck,choose_edittext;
     String st;
     Button imagebutton;
     public static CardView cardView;
@@ -143,16 +143,10 @@ public class ChooseActivity extends ActionBarActivity {
             do{
                 String mail=c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_PERSON_EMAIL));
                 String nomeri=c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_PERSON_PHONE));
-                String weli=c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_AGE));
                 String desc=c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_DESCRIPTION));
-
-//                spinnerAdapter=ArrayAdapter.createFromResource(this,R.array.spinner_array_categ,android.R.layout.simple_spinner_item);
-//                spinnercate.setAdapter(spinnerAdapter);
-
 
                 editmail.setText(mail);
                 editnomeri.setText(nomeri);
-                editweli.setText(weli);
                 editdisck.setText(desc);
             }while (c.moveToNext());
         }
