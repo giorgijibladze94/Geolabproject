@@ -34,6 +34,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.geolabedu.testn2.Adapter.CustomViewPagerAdapter;
+import com.example.geolabedu.testn2.database.DBManager;
 import com.example.geolabedu.testn2.database.VehiclContracts;
 import com.example.geolabedu.testn2.database.VehicleData;
 
@@ -61,7 +62,8 @@ public class ChooseActivity extends ActionBarActivity {
     public static CardView cardView;
     Uri url;
     Spinner spinnercate,spinnermodel,spinnerweli;
-    ArrayAdapter<CharSequence> spinnerAdapter,arrayAdapter;
+    ArrayAdapter<String > spinnerAdapter;
+    ArrayAdapter<CharSequence> arrayAdapter;
     String categ,modeli,weli;
     Toolbar choostoolbar;
 
@@ -78,6 +80,7 @@ public class ChooseActivity extends ActionBarActivity {
         arrayList = new ArrayList<>();
         adapter=new CustomViewPagerAdapter(this, arrayList);
 
+        DBManager.insertdata();
 
         image= (ImageView) findViewById(R.id.image);
         spinnerweli= (Spinner) findViewById(R.id.spinnerweli);
@@ -127,45 +130,7 @@ public class ChooseActivity extends ActionBarActivity {
             }
         });
 
-//        bt.setOnClickListener(new View.OnClickListener() {
-//            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-//            @Override
-//            public void onClick(View v) {
-//                String string=st;
-//                String mail=String.valueOf(editmail.getText());
-//                String nomeri=String.valueOf(editnomeri.getText());
-//
-//                //spinneris itemis amogheba
-//                weli=spinnerweli.getSelectedItem().toString();
-//                modeli=spinnermodel.getSelectedItem().toString();
-//
-//                String decskr= String.valueOf(editdisck.getText());
-//                VehicleData vehicleData=new VehicleData(string,mail,nomeri,categ,modeli,weli,decskr,dataformat);
-//                List list=new ArrayList();
-//                list.add(vehicleData);
-//
-//
-//                /*
-//                * bazidan unda amovshalo zedmeti informaciebi
-//                * */
-//
-//
-//                ContentValues values=new ContentValues();
-//                VehicleData data= (VehicleData) list.get(0);
-//                values.put(VehiclContracts.VEHICLE_IMAGE, data.getImage());
-//                values.put(VehiclContracts.VEHICLE_PERSON_EMAIL,data.getMail());
-//                values.put(VehiclContracts.VEHICLE_PERSON_PHONE,data.getNomeri());
-//                values.put(VehiclContracts.VEHICLE_CATEGORY,data.getCateg());
-//                values.put(VehiclContracts.VEHICLE_MODEL,data.getModeli());
-//                values.put(VehiclContracts.VEHICLE_AGE,data.getWeli());
-//                values.put(VehiclContracts.VEHICLE_DESCRIPTION,data.getDecskr());
-//                values.put(VehiclContracts.VEHICLE_DATE_ADD,data.getCalendar());
-//                FirstActivity.sqLiteDatabase.insert(VehiclContracts.VEHICLE_TABLE_NAME, null, values);
-//
-//                Intent intent=new Intent(ChooseActivity.this,FirstActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
     }
 
     public void editdata(){
@@ -194,7 +159,8 @@ public class ChooseActivity extends ActionBarActivity {
     }
 
     private void spinnerfill() {
-        spinnerAdapter=ArrayAdapter.createFromResource(ChooseActivity.this, R.array.spinner_array_categ, android.R.layout.simple_spinner_item);
+        ArrayList list=DBManager.testarray();
+        spinnerAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
         spinnercate.setAdapter(spinnerAdapter);
         arrayAdapter=ArrayAdapter.createFromResource(ChooseActivity.this,R.array.vehicle_age,android.R.layout.simple_spinner_item);
         spinnerweli.setAdapter(arrayAdapter);

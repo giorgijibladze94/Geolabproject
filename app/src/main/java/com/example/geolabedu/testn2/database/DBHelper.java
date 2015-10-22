@@ -38,6 +38,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     + " FOREIGN KEY(" + VehiclContracts.VEHICLE_PARENT_ID + ") REFERENCES " + VehiclContracts.VEHICLE_TABLE_NAME +
                     "(" + VehiclContracts.VEHICLE_ID + "));";
 
+    private static final String CREATE_BUILDER_TABLE =
+            "CREATE TABLE " + VehiclContracts.VEHICLE_BUILDER_TABLE + "("
+                    + VehiclContracts.VEHICLE_BUILDER_ID + " integer primary key autoincrement,"
+                    + VehiclContracts.VEHICLE_BUILDER + "text not null );";
+
     /*
     sheiqmneba sheni teiblebi es xdeba ertxel tu table damateba mogvinda database_version shecvlac gviwevs
     */
@@ -45,6 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_VEHICLE_TABLE);
         sqLiteDatabase.execSQL(CREATE_VEHICLE_IMAGE);
+        sqLiteDatabase.execSQL(CREATE_BUILDER_TABLE);
 
     }
 
