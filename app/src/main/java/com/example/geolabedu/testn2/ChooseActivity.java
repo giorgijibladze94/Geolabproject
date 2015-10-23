@@ -56,19 +56,20 @@ public class ChooseActivity extends ActionBarActivity {
     ViewPager viewPager;
     long l;
     ImageView image;
-    EditText editmail,editnomeri,editdisck,choose_edittext;
+    EditText editmail, editnomeri, editdisck, choose_edittext;
     String st;
     Button imagebutton;
     public static CardView cardView;
     Uri url;
-    Spinner spinnercate,spinnermodel,spinnerweli;
-    ArrayAdapter<String > spinnerAdapter;
+    Spinner spinnercate, spinnermodel, spinnerweli;
+    ArrayAdapter<String> spinnerAdapter;
+    ArrayAdapter<CharSequence> adaptermodeli;
     ArrayAdapter<CharSequence> arrayAdapter;
-    String categ,modeli,weli;
+    String categ, modeli, weli;
     Toolbar choostoolbar;
+    CustomViewPagerAdapter adapter;
 
     ArrayList<String> arrayList;
-
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -78,35 +79,33 @@ public class ChooseActivity extends ActionBarActivity {
         setContentView(R.layout.activity_choose);
 
         arrayList = new ArrayList<>();
-        adapter=new CustomViewPagerAdapter(this, arrayList);
+        adapter = new CustomViewPagerAdapter(this, arrayList);
 
         DBManager.insertdata();
 
-        image= (ImageView) findViewById(R.id.image);
-        spinnerweli= (Spinner) findViewById(R.id.spinnerweli);
-        spinnercate= (Spinner) findViewById(R.id.categ);
-        spinnermodel= (Spinner) findViewById(R.id.modeli);
-        cardView= (CardView) findViewById(R.id.cardlist_item);
-        editmail= (EditText) findViewById(R.id.mail);
-        editnomeri= (EditText) findViewById(R.id.phone);
-        editdisck= (EditText) findViewById(R.id.diskription);
-        viewPager= (ViewPager) findViewById(R.id.viewpager);
-        //bt= (Button) findViewById(R.id.button);
-        imagebutton= (Button) findViewById(R.id.imagebutton);
-        //imageView= (ImageView) findViewById(R.id.imageView);
+        image = (ImageView) findViewById(R.id.image);
+        spinnerweli = (Spinner) findViewById(R.id.spinnerweli);
+        spinnercate = (Spinner) findViewById(R.id.categ);
+        spinnermodel = (Spinner) findViewById(R.id.modeli);
+        cardView = (CardView) findViewById(R.id.cardlist_item);
+        editmail = (EditText) findViewById(R.id.mail);
+        editnomeri = (EditText) findViewById(R.id.phone);
+        editdisck = (EditText) findViewById(R.id.diskription);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        imagebutton = (Button) findViewById(R.id.imagebutton);
 
-        choostoolbar= (Toolbar) findViewById(R.id.choos_toolbar);
+        choostoolbar = (Toolbar) findViewById(R.id.choos_toolbar);
 
-        choose_edittext= (EditText) findViewById(R.id.choose_edittext);
+        choose_edittext = (EditText) findViewById(R.id.choose_edittext);
 
-        Typeface typeface=Typeface.createFromAsset(getAssets(),"fonts/bpg_mtavruli_normal.ttf");
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/bpg_mtavruli_normal.ttf");
         choose_edittext.setTypeface(typeface);
 
         editmail.setTypeface(typeface);
         editnomeri.setTypeface(typeface);
         editdisck.setTypeface(typeface);
 
-        Window window=getWindow();
+        Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.statusrose));
@@ -119,7 +118,7 @@ public class ChooseActivity extends ActionBarActivity {
 
         spinnerfill();
 
-        if(getIntent().hasExtra("edit")){
+        if (getIntent().hasExtra("edit")) {
             editdata();
         }
 
@@ -133,49 +132,78 @@ public class ChooseActivity extends ActionBarActivity {
 
     }
 
-    public void editdata(){
-        Toast.makeText(this,"raghaca",Toast.LENGTH_LONG).show();
-        int data= (int) getIntent().getExtras().getSerializable("edit");
+    public void editdata() {
+        Toast.makeText(this, "raghaca", Toast.LENGTH_LONG).show();
+        int data = (int) getIntent().getExtras().getSerializable("edit");
 
-        Cursor c=FirstActivity.sqLiteDatabase.query(VehiclContracts.VEHICLE_TABLE_NAME,null,VehiclContracts.VEHICLE_ID + "  ="+ data,null,null,null,null);
+        Cursor cursor = FirstActivity.sqLiteDatabase.query(VehiclContracts.VEHICLE_IMAGE_TABLE, null, VehiclContracts.VEHICLE_PARENT_ID + " =" + data, null, null, null, null);
+        ArrayList list = new ArrayList();
+        if (cursor.moveToFirst()) {
+            do {
+                String imageurl = cursor.getString(cursor.getColumnIndex(VehiclContracts.VEHICLE_IMAGE));
+                list.add(imageurl);
+            } while (cursor.moveToNext());
+        }
+        image.setVisibility(View.INVISIBLE);
+        adapter = new CustomViewPagerAdapter(this, list);
+        viewPager.setAdapter(adapter);
 
-        if(c.moveToFirst()){
-            do{
-                String mail=c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_PERSON_EMAIL));
-                String nomeri=c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_PERSON_PHONE));
-                String desc=c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_DESCRIPTION));
+        Cursor c = FirstActivity.sqLiteDatabase.query(VehiclContracts.VEHICLE_TABLE_NAME, null, VehiclContracts.VEHICLE_ID + "  =" + data, null, null, null, null);
+
+        if (c.moveToFirst()) {
+            do {
+                String mail = c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_PERSON_EMAIL));
+                String nomeri = c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_PERSON_PHONE));
+                String desc = c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_DESCRIPTION));
+
+                /**
+                 * spinner-is dayeneba sachiro itemze
+                 */
+                String cat = c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_CATEGORY));
+                int k = spinnerAdapter.getPosition(cat);
+                spinnercate.setSelection(k);
+
+                String age = c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_AGE));
+                int weli = arrayAdapter.getPosition(age);
+                spinnerweli.setSelection(weli);
+
+                String modeli = c.getString(c.getColumnIndex(VehiclContracts.VEHICLE_MODEL));
+                int m = adaptermodeli.getPosition(modeli);
+                spinnermodel.setSelection(m);
 
                 editmail.setText(mail);
                 editnomeri.setText(nomeri);
                 editdisck.setText(desc);
-            }while (c.moveToNext());
+            } while (c.moveToNext());
         }
     }
 
     private void spinnerfill() {
-        ArrayList list=DBManager.testarray();
-        spinnerAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
+        ArrayList list = DBManager.selectdata();
+        spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         spinnercate.setAdapter(spinnerAdapter);
-        arrayAdapter=ArrayAdapter.createFromResource(ChooseActivity.this,R.array.vehicle_age,android.R.layout.simple_spinner_item);
+        arrayAdapter = ArrayAdapter.createFromResource(ChooseActivity.this, R.array.vehicle_age, android.R.layout.simple_spinner_item);
         spinnerweli.setAdapter(arrayAdapter);
         spinnercate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //aq unda davwero rom meore spinneri iyos pirvelze damokidebuli
-                int count=parent.getCount();
-                categ= (String) spinnercate.getItemAtPosition(position);
-                switch (position){
+                int count = parent.getCount();
+                categ = (String) spinnercate.getItemAtPosition(position);
+                switch (position) {
                     case 0:
-                        ArrayAdapter adapter=ArrayAdapter.createFromResource(ChooseActivity.this,R.array.spinner_array_model_null,android.R.layout.simple_spinner_item);
-                        spinnermodel.setAdapter(adapter);
+                        adaptermodeli = ArrayAdapter.createFromResource(ChooseActivity.this, R.array.spinner_array_model_null, android.R.layout.simple_spinner_item);
+                        spinnermodel.setAdapter(adaptermodeli);
                         break;
                     case 1:
-                        ArrayAdapter adapter_bmw=ArrayAdapter.createFromResource(ChooseActivity.this,R.array.spinner_array_model_bmw,android.R.layout.simple_spinner_item);
-                        spinnermodel.setAdapter(adapter_bmw);
+                        ArrayList arraymodel=DBManager.selectdatamodel(position);
+                        adaptermodeli = new ArrayAdapter(ChooseActivity.this,android.R.layout.simple_spinner_item,arraymodel);
+                        spinnermodel.setAdapter(adaptermodeli);
                         break;
                     case 2:
-                        ArrayAdapter adapter_merc=ArrayAdapter.createFromResource(ChooseActivity.this,R.array.spinner_array_model_merc,android.R.layout.simple_spinner_item);
-                        spinnermodel.setAdapter(adapter_merc);
+                        ArrayList arraymodel1=DBManager.selectdatamodel(position);
+                        adaptermodeli = new ArrayAdapter(ChooseActivity.this,android.R.layout.simple_spinner_item,arraymodel1);
+                        spinnermodel.setAdapter(adaptermodeli);
                         break;
                     //dasamatebelia case-ebi :)))))))))
                 }
@@ -191,11 +219,11 @@ public class ChooseActivity extends ActionBarActivity {
 
     private void selectImage() {
 
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
 
-        Calendar calendar=Calendar.getInstance();
-        calendar.add(Calendar.SECOND,1);
-        l=calendar.getTimeInMillis();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.SECOND, 1);
+        l = calendar.getTimeInMillis();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ChooseActivity.this);
         builder.setTitle("Add Photo!");
@@ -219,9 +247,10 @@ public class ChooseActivity extends ActionBarActivity {
         });
         builder.show();
     }
-    CustomViewPagerAdapter adapter;
-    int i=500,b=500;
+
+    int i = 500, b = 500;
     Bitmap compresbitmap;
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -231,7 +260,7 @@ public class ChooseActivity extends ActionBarActivity {
             if (requestCode == 1) {
                 File f = new File(Environment.getExternalStorageDirectory().toString());
                 for (File temp : f.listFiles()) {
-                    if (temp.getName().equals(l+".jpg")) {
+                    if (temp.getName().equals(l + ".jpg")) {
                         f = temp;
                         break;
                     }
@@ -243,22 +272,22 @@ public class ChooseActivity extends ActionBarActivity {
                     bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             bitmapOptions);
 
-                    compresbitmap=Bitmap.createScaledBitmap(bitmap,i,b,true);
-                    url=getImageUri(ChooseActivity.this,compresbitmap);
+                    compresbitmap = Bitmap.createScaledBitmap(bitmap, i, b, true);
+                    url = getImageUri(ChooseActivity.this, compresbitmap);
 
-                    st=getRealPathFromURI(url);
+                    st = getRealPathFromURI(url);
 
 
                     arrayList.add(st);
 
-                    if(arrayList!=null){
+                    if (arrayList != null) {
                         image.setVisibility(View.INVISIBLE);//xilvadoba
                         adapter.notifyDataSetChanged();
                         viewPager.setAdapter(adapter);
                     }
 
 
-                    path= android.os.Environment
+                    path = android.os.Environment
                             .getExternalStorageDirectory()
                             + File.separator
                             + "Phoenix" + File.separator + "default";
@@ -284,8 +313,8 @@ public class ChooseActivity extends ActionBarActivity {
             } else if (requestCode == 2) {
 
                 Uri selectedImage = data.getData();
-                String[] filePath = { MediaStore.Images.Media.DATA };
-                Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
+                String[] filePath = {MediaStore.Images.Media.DATA};
+                Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
                 c.moveToFirst();
                 int columnIndex = c.getColumnIndex(filePath[0]);
                 String picturePath = c.getString(columnIndex);
@@ -293,13 +322,13 @@ public class ChooseActivity extends ActionBarActivity {
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
                 Log.w("path of image from gallery......******************.........", picturePath + "");
 
-                compresbitmap=Bitmap.createScaledBitmap(thumbnail,i,b,true);
+                compresbitmap = Bitmap.createScaledBitmap(thumbnail, i, b, true);
 
-                url=getImageUri(this,compresbitmap);
-                st=getRealPathFromURI(url);
+                url = getImageUri(this, compresbitmap);
+                st = getRealPathFromURI(url);
 
                 arrayList.add(st);
-                if(arrayList!=null){
+                if (arrayList != null) {
                     image.setVisibility(View.INVISIBLE);
                     adapter.notifyDataSetChanged();
                     viewPager.setAdapter(adapter);
@@ -307,6 +336,7 @@ public class ChooseActivity extends ActionBarActivity {
             }
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -321,29 +351,28 @@ public class ChooseActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
 
             case android.R.id.home:
                 Intent myIntent = new Intent(getApplicationContext(), FirstActivity.class);
                 startActivityForResult(myIntent, 0);
                 return true;
             case R.id.save:
-                Toast.makeText(ChooseActivity.this,"click",Toast.LENGTH_SHORT).show();
-                //String string=st;
-                String mail=String.valueOf(editmail.getText());
-                String nomeri=String.valueOf(editnomeri.getText());
+                Toast.makeText(ChooseActivity.this, "click", Toast.LENGTH_SHORT).show();
+                String mail = String.valueOf(editmail.getText());
+                String nomeri = String.valueOf(editnomeri.getText());
 
-                Calendar c=Calendar.getInstance();
-                SimpleDateFormat sdf=new SimpleDateFormat("MMM/dd/yyyy");
-                final String dataformat=sdf.format(c.getTime());
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM/dd/yyyy");
+                final String dataformat = sdf.format(c.getTime());
 
                 //spinneris itemis amogheba
-                weli=spinnerweli.getSelectedItem().toString();
-                modeli=spinnermodel.getSelectedItem().toString();
+                weli = spinnerweli.getSelectedItem().toString();
+                modeli = spinnermodel.getSelectedItem().toString();
 
-                String decskr= String.valueOf(editdisck.getText());
-                VehicleData vehicleData=new VehicleData(arrayList,mail,nomeri,categ,modeli,weli,decskr,dataformat);
-                List list=new ArrayList();
+                String decskr = String.valueOf(editdisck.getText());
+                VehicleData vehicleData = new VehicleData(arrayList, mail, nomeri, categ, modeli, weli, decskr, dataformat);
+                List list = new ArrayList();
                 list.add(vehicleData);
 
 
@@ -352,8 +381,8 @@ public class ChooseActivity extends ActionBarActivity {
                 * */
 
 
-                ContentValues values=new ContentValues();
-                VehicleData data= (VehicleData) list.get(0);
+                ContentValues values = new ContentValues();
+                VehicleData data = (VehicleData) list.get(0);
 
                 values.put(VehiclContracts.VEHICLE_PERSON_EMAIL, data.getMail());
                 values.put(VehiclContracts.VEHICLE_PERSON_PHONE, data.getNomeri());
@@ -361,22 +390,22 @@ public class ChooseActivity extends ActionBarActivity {
                 values.put(VehiclContracts.VEHICLE_MODEL, data.getModeli());
                 values.put(VehiclContracts.VEHICLE_AGE, data.getWeli());
 
-                values.put(VehiclContracts.VEHICLE_MAIN_IMAGE,arrayList.get(0));//amomaqvs listidan 0vani elementi rom davayeno recyclerviewze
+                values.put(VehiclContracts.VEHICLE_MAIN_IMAGE, arrayList.get(0));//amomaqvs listidan 0vani elementi rom davayeno recyclerviewze
 
                 values.put(VehiclContracts.VEHICLE_DESCRIPTION, data.getDecskr());
                 values.put(VehiclContracts.VEHICLE_DATE_ADD, data.getCalendar());
 
 
-                long id5  = FirstActivity.sqLiteDatabase.insert(VehiclContracts.VEHICLE_TABLE_NAME, null, values);
+                long id5 = FirstActivity.sqLiteDatabase.insert(VehiclContracts.VEHICLE_TABLE_NAME, null, values);
 
-                for(int i=0;i<arrayList.size();i++) {
-                    ContentValues values1=new ContentValues();
-                    values1.put(VehiclContracts.VEHICLE_PARENT_ID,id5);
+                for (int i = 0; i < arrayList.size(); i++) {
+                    ContentValues values1 = new ContentValues();
+                    values1.put(VehiclContracts.VEHICLE_PARENT_ID, id5);
                     values1.put(VehiclContracts.VEHICLE_IMAGE, data.getImage(i));
-                    FirstActivity.sqLiteDatabase.insert(VehiclContracts.VEHICLE_IMAGE_TABLE,null,values1);
+                    FirstActivity.sqLiteDatabase.insert(VehiclContracts.VEHICLE_IMAGE_TABLE, null, values1);
                 }
 
-                Intent intent=new Intent(ChooseActivity.this,FirstActivity.class);
+                Intent intent = new Intent(ChooseActivity.this, FirstActivity.class);
                 startActivity(intent);
                 return true;
 

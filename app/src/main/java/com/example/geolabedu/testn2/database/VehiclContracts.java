@@ -26,4 +26,10 @@ public class VehiclContracts {
     public static final String VEHICLE_BUILDER_ID = "id";
     public static final String VEHICLE_BUILDER = "builder";
 
+
+    public static final String VEHICLE_MODEL_TABLE = "model";
+    public static final String VEHICLE_MODELI_ID = "id";
+    public static final String VEHICLE_MODEL_PARENT_ID = "parantid";
+    public static final String VEHICLE_BASIC_MODEL = "model";
+
 }
