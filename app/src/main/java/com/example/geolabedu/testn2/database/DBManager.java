@@ -2,6 +2,8 @@ package com.example.geolabedu.testn2.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.example.geolabedu.testn2.FirstActivity;
 
@@ -101,5 +103,12 @@ public class DBManager {
 
         return list;
     }
+
+    public static void delete(int id){
+        SQLiteDatabase db=FirstActivity.sqLiteDatabase;
+        db.delete(VehiclContracts.VEHICLE_TABLE_NAME,VehiclContracts.VEHICLE_ID + " =" +id,null);
+
+    }
+
 
 }

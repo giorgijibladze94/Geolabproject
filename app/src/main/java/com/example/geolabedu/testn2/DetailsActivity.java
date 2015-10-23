@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -21,12 +22,13 @@ import android.widget.Toast;
 
 import com.example.geolabedu.testn2.Adapter.CustomViewPagerAdapter;
 import com.example.geolabedu.testn2.database.DBHelper;
+import com.example.geolabedu.testn2.database.DBManager;
 import com.example.geolabedu.testn2.database.VehiclContracts;
 import com.example.geolabedu.testn2.database.VehicleData;
 
 import java.util.ArrayList;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends ActionBarActivity {
 
     int ID;
     DBHelper dbHelper;
@@ -34,6 +36,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView textView,description;
     Toolbar toolbar;
     ViewPager viewPager;
+    VehicleData data;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -49,7 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
         description= (TextView) findViewById(R.id.description);
 
 
-        VehicleData data= (VehicleData) getIntent().getExtras().getSerializable("data");
+        data= (VehicleData) getIntent().getExtras().getSerializable("data");
 
         Cursor cursor=sqLiteDatabase.query(VehiclContracts.VEHICLE_IMAGE_TABLE,null,VehiclContracts.VEHICLE_PARENT_ID + "= "+data.getID(),null,null,null,null);
 
@@ -86,7 +89,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //toolbar title change
         getSupportActionBar().setTitle(null);
     }
@@ -117,9 +120,16 @@ public class DetailsActivity extends AppCompatActivity {
                 return true;
             case R.id.delete:
                 Toast.makeText(this,"click delete",Toast.LENGTH_LONG).show();
+                DBManager.delete(data.getID());
+                Intent intent1=new Intent(this,FirstActivity.class);
+                startActivity(intent1);
                 return true;
             case R.id.send:
                 Toast.makeText(this,"click send",Toast.LENGTH_LONG).show();
+                return true;
+            case android.R.id.home:
+                Intent myIntent = new Intent(getApplicationContext(), FirstActivity.class);
+                startActivity(myIntent);
                 return true;
         }
 

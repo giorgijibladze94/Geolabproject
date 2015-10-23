@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.geolabedu.testn2.FirstActivity;
+
 /**
  * Created by GeoLabOwl on 04.08.15.
  */
@@ -11,10 +13,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Caucasus_Auto_ServiceDB";
     private static final int DATABASE_VERSION = 1;
+    public static final String KEY_ID = "_id";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
 
     private static final String CREATE_VEHICLE_TABLE =
