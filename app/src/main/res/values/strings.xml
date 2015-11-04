@@ -1,12 +1,13 @@
 <resources>
-    <string name="app_name">testN2</string>
+    <string name="app_name">autoservice</string>
+    <string name="facebook_app_id">1710551339179679</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">edit</string>
     <string name="edit">edit</string>
     <string name="delete">delete</string>
     <string name="send">send</string>
-    <string name="title_activity_first">FirstActivity</string>
+    <string name="title_activity_first">autoservice</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
     <string name="title_activity_choose">ChooseActivity</string>

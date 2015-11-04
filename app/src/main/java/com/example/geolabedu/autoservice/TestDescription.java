@@ -1,4 +1,4 @@
-package com.example.geolabedu.testn2;
+package com.example.geolabedu.autoservice;
 
 import android.net.Uri;
 

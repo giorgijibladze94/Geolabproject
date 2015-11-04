@@ -1,11 +1,10 @@
-package com.example.geolabedu.testn2.database;
+package com.example.geolabedu.autoservice.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
-import com.example.geolabedu.testn2.FirstActivity;
+import com.example.geolabedu.autoservice.FirstActivity;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,8 @@
-package com.example.geolabedu.testn2.database;
+package com.example.geolabedu.autoservice.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import com.example.geolabedu.testn2.FirstActivity;
 
 /**
  * Created by GeoLabOwl on 04.08.15.

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.geolabedu.testn2.CaucasusContactActivity">
+    tools:context="com.example.geolabedu.autoservice.CaucasusContactActivity">
 
 
     <android.support.v7.widget.Toolbar

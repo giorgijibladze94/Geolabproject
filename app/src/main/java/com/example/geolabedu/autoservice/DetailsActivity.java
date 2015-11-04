@@ -1,30 +1,27 @@
-package com.example.geolabedu.testn2;
+package com.example.geolabedu.autoservice;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.geolabedu.testn2.Adapter.CustomViewPagerAdapter;
-import com.example.geolabedu.testn2.database.DBHelper;
-import com.example.geolabedu.testn2.database.DBManager;
-import com.example.geolabedu.testn2.database.VehiclContracts;
-import com.example.geolabedu.testn2.database.VehicleData;
+import com.example.geolabedu.autoservice.Adapter.CustomViewPagerAdapter;
+import com.example.geolabedu.autoservice.database.DBHelper;
+import com.example.geolabedu.autoservice.database.DBManager;
+import com.example.geolabedu.autoservice.database.VehiclContracts;
+import com.example.geolabedu.autoservice.database.VehicleData;
 
 import java.util.ArrayList;
 

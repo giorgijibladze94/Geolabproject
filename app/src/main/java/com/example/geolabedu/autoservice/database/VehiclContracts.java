@@ -1,4 +1,4 @@
-package com.example.geolabedu.testn2.database;
+package com.example.geolabedu.autoservice.database;
 
 /**
  * Created by GeoLabOwl on 04.08.15.

@@ -1,4 +1,4 @@
-package com.example.geolabedu.testn2.Adapter;
+package com.example.geolabedu.autoservice.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.geolabedu.testn2.DetailsActivity;
-import com.example.geolabedu.testn2.R;
-import com.example.geolabedu.testn2.database.VehicleData;
+import com.example.geolabedu.autoservice.DetailsActivity;
+import com.example.geolabedu.autoservice.R;
+import com.example.geolabedu.autoservice.database.VehicleData;
 
 import java.util.List;
 

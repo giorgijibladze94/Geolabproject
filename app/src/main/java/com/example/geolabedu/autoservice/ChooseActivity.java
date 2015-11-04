@@ -1,4 +1,4 @@
-package com.example.geolabedu.testn2;
+package com.example.geolabedu.autoservice;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -33,10 +33,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.geolabedu.testn2.Adapter.CustomViewPagerAdapter;
-import com.example.geolabedu.testn2.database.DBManager;
-import com.example.geolabedu.testn2.database.VehiclContracts;
-import com.example.geolabedu.testn2.database.VehicleData;
+import com.example.geolabedu.autoservice.Adapter.CustomViewPagerAdapter;
+import com.example.geolabedu.autoservice.database.DBManager;
+import com.example.geolabedu.autoservice.database.VehiclContracts;
+import com.example.geolabedu.autoservice.database.VehicleData;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

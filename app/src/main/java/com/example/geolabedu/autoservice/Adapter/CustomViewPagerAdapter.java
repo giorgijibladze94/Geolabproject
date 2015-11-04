@@ -1,21 +1,17 @@
-package com.example.geolabedu.testn2.Adapter;
+package com.example.geolabedu.autoservice.Adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.example.geolabedu.testn2.R;
+import com.example.geolabedu.autoservice.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by GeoLabOwl on 20.09.15.

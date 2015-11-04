@@ -1,6 +1,5 @@
-package com.example.geolabedu.testn2;
+package com.example.geolabedu.autoservice;
 
-import android.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 

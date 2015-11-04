@@ -1,4 +1,4 @@
-package com.example.geolabedu.testn2.database;
+package com.example.geolabedu.autoservice.database;
 
 import java.io.Serializable;
 import java.util.ArrayList;
